@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CampusLifeLine</title>
+    <link rel="stylesheet" href="campuslifeline.css" />
+</head>
+
+<body>
+    <header class="topbar">
+        <a href="campuslifeline.html" class="logo">
+            <img src="logo-01.png" alt="CampusLifeLine logo" />
+        </a>
+
+        <nav class="nav" id="navMenu">
+            <a href="campuslifeline.html">Home</a>
+            <a href="donor.html">Donor Register</a>
+            <a href="request.html">Emergency Request</a>
+            <a href="check-request.html">Check Request</a>
+            <a href="donors-list.html">Donor List</a>
+        </nav>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">☰</button>
+        <button class="btn-primary desktop-cta">Get Help Now</button>
+    </header>
+
+    <section class="hero" style="
+      --hero-desktop: url('hero-01.png');
+      --hero-mobile: url('mobile-hero-01.png');
+    ">
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <span class="badge">Delhi University Emergency Network</span>
+            <h1>Fast, Campus‑Centric Blood Donor Coordination</h1>
+            <p>
+                Connects DU students and nearby donors instantly during emergencies.
+                No rewards. No selling. Just help, fast.
+            </p>
+            <div class="hero-actions">
+                <a class="btn-primary" href="request.html">Raise Emergency Request</a>
+                <a class="btn-outline" href="donor.html">Become a Donor</a>
+            </div>
+            <div class="hero-stats">
+                <div>
+                    <h3>2 min</h3>
+                    <p>Avg request match time</p>
+                </div>
+                <div>
+                    <h3>100%</h3>
+                    <p>Campus verified donors</p>
+                </div>
+                <div>
+                    <h3>24x7</h3>
+                    <p>Emergency guidance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section how-it-works">
+        <h2>How It Works</h2>
+        <p class="section-subtitle">A simple 3‑step process to connect donors and patients fast.</p>
+
+        <div class="how-steps">
+            <div class="step-card step-1">
+                <div class="step-badge">1</div>
+                <h3>Post Request</h3>
+                <p>Fill the emergency request form with blood group and location.</p>
+            </div>
+
+            <div class="step-arrow">➜</div>
+
+            <div class="step-card step-2">
+                <div class="step-badge">2</div>
+                <h3>Find Donors</h3>
+                <p>Matching donors near you are immediately notified.</p>
+            </div>
+
+            <div class="step-arrow">➜</div>
+
+            <div class="step-card step-3">
+                <div class="step-badge">3</div>
+                <h3>Get Help Fast</h3>
+                <p>Connect directly and save a life in minutes.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section feature-strip">
+        <div class="feature-card feature-gemini">
+            <div class="feature-icon">✨</div>
+            <h3>Emergency Guidance (Gemini)</h3>
+            <p>Instant AI assistance for patients and donors during emergencies.</p>
+            <a class="feature-btn" href="request.html">Get Guidance</a>
+        </div>
+
+        <div class="feature-card feature-donor">
+            <div class="feature-icon">🔔</div>
+            <h3>Donor Notifications</h3>
+            <p>Get real‑time donor alerts when a matching request is posted.</p>
+            <a class="feature-btn" href="donor.html">Become a Donor</a>
+        </div>
+
+        <div class="feature-card feature-live">
+            <div class="feature-icon">🔥</div>
+            <h3>Live Requests (Firestore)</h3>
+            <p>Track verified live requests and respond faster than ever.</p>
+            <a class="feature-btn" href="donors-list.html">View Requests</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>CampusLifeLine • Built for GDG Hackathon • Ethical & Campus‑Centric</p>
+    </footer>
+
+    <script type="module" src="campuslifeline.js"></script>
+</body>
+
+</html>

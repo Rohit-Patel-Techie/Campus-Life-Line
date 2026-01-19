@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Donor Registration | CampusLifeLine</title>
+    <link rel="stylesheet" href="campuslifeline.css" />
+</head>
+
+<body>
+    <header class="topbar">
+        <a href="campuslifeline.html" class="logo">
+            <img src="logo-01.png" alt="CampusLifeLine logo" />
+        </a>
+
+        <nav class="nav" id="navMenu">
+            <a href="campuslifeline.html">Home</a>
+            <a href="donor.html">Donor Register</a>
+            <a href="request.html">Emergency Request</a>
+            <a href="check-request.html">Check Request</a>
+            <a href="donors-list.html">Donor List</a>
+        </nav>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">☰</button>
+        <button class="btn-primary desktop-cta">Get Help Now</button>
+    </header>
+
+    <section class="hero small-hero hero-with-form" style="
+      --hero-desktop: url('hero-01.png');
+      --hero-mobile: url('mobile-hero-01.png');
+    ">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="badge">Donor Network</span>
+            <h1>Become a Donor</h1>
+            <p>Register in the DU emergency donor network.</p>
+        </div>
+
+        <div class="floating-form">
+            <h2>Donor Registration</h2>
+            <p>Join DU’s emergency donor network.</p>
+
+            <form id="donorForm" class="form-card glass-form">
+                <input name="name" placeholder="Full Name" required />
+                <input name="email" placeholder="Email" required />
+                <input name="college" placeholder="College Name" required />
+                <select name="blood_group">
+                    <option>A+</option>
+                    <option>A-</option>
+                    <option>B+</option>
+                    <option>B-</option>
+                    <option>O+</option>
+                    <option>O-</option>
+                    <option>AB+</option>
+                    <option>AB-</option>
+                </select>
+                <select name="area">
+                    <option value="North">North Campus</option>
+                    <option value="South">South Campus</option>
+                </select>
+                <input name="contact_number" placeholder="Contact Number" required />
+                <input type="date" name="last_donation_date" required />
+                <button type="submit" class="btn-primary">Register</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>CampusLifeLine • DU Emergency Network</p>
+    </footer>
+
+    <script type="module" src="campuslifeline.js"></script>
+</body>
+
+</html>

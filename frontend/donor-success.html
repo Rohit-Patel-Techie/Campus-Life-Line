@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CampusLifeLine • Registration Success</title>
+    <link rel="stylesheet" href="campuslifeline.css" />
+    <style>
+        .success-card {
+            max-width: 720px;
+            margin: 40px auto;
+            padding: 32px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .success-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .success-message {
+            font-size: 1.05rem;
+            color: #444;
+            margin-top: 10px;
+        }
+
+        .success-actions {
+            margin-top: 24px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 600px) {
+            .success-card {
+                margin: 24px 16px;
+                padding: 24px;
+            }
+        }
+
+        .btn-scroll {
+            transform: translateY(4px);
+            transition: transform 0.2s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <a href="campuslifeline.html" class="logo">
+            <img src="logo-01.png" alt="CampusLifeLine logo" />
+        </a>
+
+        <nav class="nav" id="navMenu">
+            <a href="campuslifeline.html">Home</a>
+            <a href="donor.html">Donor Register</a>
+            <a href="request.html">Emergency Request</a>
+            <a href="check-request.html">Check Request</a>
+            <a href="donors-list.html">Donor List</a>
+        </nav>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">☰</button>
+        <button class="btn-primary desktop-cta">Get Help Now</button>
+    </header>
+
+    <section class="section">
+        <div class="success-card">
+            <div class="success-icon">✅</div>
+            <h2 id="successTitle">Congratulations!</h2>
+            <p class="success-message" id="successMessage">
+                Your registration is complete. You are now listed in our donor database.
+                If an emergency request matches your blood group, you’ll receive an alert.
+            </p>
+
+            <div class="success-actions">
+                <a class="btn-primary" href="donors-list.html">View Donor List</a>
+                <a class="btn-outline" href="campuslifeline.html">Back to Home</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>CampusLifeLine • Built for GDG Hackathon • Ethical & Campus‑Centric</p>
+    </footer>
+
+    <script type="module">
+        import "./campuslifeline.js";
+
+        const params = new URLSearchParams(window.location.search);
+        const name = params.get("name") || "Hero Donor";
+
+        document.getElementById("successTitle").textContent = `Congratulations, ${name}!`;
+    </script>
+</body>
+
+</html>

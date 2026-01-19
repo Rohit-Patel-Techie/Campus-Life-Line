@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Check Request | CampusLifeLine</title>
+  <link rel="stylesheet" href="campuslifeline.css" />
+</head>
+<body class="page-light">
+  <header class="topbar">
+    <a href="campuslifeline.html" class="logo">
+      <img src="logo-01.png" alt="CampusLifeLine logo" />
+    </a>
+
+    <nav class="nav" id="navMenu">
+      <a href="campuslifeline.html">Home</a>
+      <a href="donor.html">Donor Register</a>
+      <a href="request.html">Emergency Request</a>
+      <a href="check-request.html" class="active">Check Request</a>
+      <a href="donors-list.html">Donor List</a>
+    </nav>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">☰</button>
+    <button class="btn-primary desktop-cta">Get Help Now</button>
+  </header>
+
+  <main class="check-wrapper">
+    <section class="check-hero">
+      <div class="check-hero-text">
+        <span class="badge">Status</span>
+        <h1>Check Your Request</h1>
+        <p>Enter your request ID or phone number to view status and donor details.</p>
+        <div class="quick-stats">
+          <div class="stat-card">
+            <h3>Fast</h3>
+            <p>Instant status lookup</p>
+          </div>
+          <div class="stat-card">
+            <h3>Secure</h3>
+            <p>Protected data access</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="check-card">
+        <form id="checkForm" class="check-form">
+          <label>
+            Request ID (optional)
+            <input name="request_id" placeholder="e.g. cfUuFdIYAWxqeA5dNrZy" />
+          </label>
+          <label>
+            Phone Number (optional)
+            <input name="contact_number" placeholder="e.g. 08120927135" />
+          </label>
+          <button type="submit" class="btn-primary wide">Check Status</button>
+          <p class="muted">Provide one of the two fields above.</p>
+        </form>
+      </div>
+    </section>
+
+    <section class="results-section">
+      <h2>Request Status</h2>
+      <div id="resultBox" class="result-box">
+        <div class="empty-state">No results yet. Submit the form to search.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>CampusLifeLine • DU Emergency Network</p>
+  </footer>
+
+  <script type="module" src="check-request.js"></script>
+</body>
+</html>

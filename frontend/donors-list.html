@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CampusLifeLine • Donor List</title>
+    <link rel="stylesheet" href="campuslifeline.css" />
+    <style>
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table.donor-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            min-width: 700px;
+        }
+
+        table.donor-table th,
+        table.donor-table td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        table.donor-table th {
+            background: #f7f7f7;
+            font-weight: 700;
+        }
+
+        table.donor-table tr:hover {
+            background: #fafafa;
+        }
+
+        .donor-count {
+            margin: 12px 0 20px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            table.donor-table {
+                min-width: 600px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            table.donor-table {
+                min-width: 520px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <a href="campuslifeline.html" class="logo">
+            <img src="logo-01.png" alt="CampusLifeLine logo" />
+        </a>
+
+        <nav class="nav" id="navMenu">
+            <a href="campuslifeline.html">Home</a>
+            <a href="donor.html">Donor Register</a>
+            <a href="request.html">Emergency Request</a>
+            <a href="check-request.html">Check Request</a>
+            <a href="donors-list.html">Donor List</a>
+        </nav>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">☰</button>
+        <button class="btn-primary desktop-cta">Get Help Now</button>
+    </header>
+
+    <section class="hero" style="
+      --hero-desktop: url('hero-01.png');
+      --hero-mobile: url('mobile-hero-01.png');
+    ">
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <span class="badge">Delhi University Emergency Network</span>
+            <h1>Verified Donor List</h1>
+            <p>Patients can view available donors in a clean, responsive table.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Available Donors</h2>
+        <p class="section-subtitle">Live data fetched from backend.</p>
+
+        <div id="donorCount" class="donor-count"></div>
+
+        <div class="table-wrapper">
+            <table class="donor-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Blood Group</th>
+                        <th>Phone</th>
+                        <th>Location</th>
+                    </tr>
+                </thead>
+                <tbody id="donorTableBody">
+                    <!-- Dynamic rows -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>CampusLifeLine • Built for GDG Hackathon • Ethical & Campus‑Centric</p>
+    </footer>
+
+    <script type="module">
+        import "./campuslifeline.js";
+
+        const API = "http://127.0.0.1:8000/api";
+
+        async function loadDonors() {
+            const res = await fetch(`${API}/donors/list/`);
+            const data = await res.json();
+            const donors = data.data || [];
+
+            const countBox = document.getElementById("donorCount");
+            countBox.textContent = `Total Registered Donors: ${donors.length}`;
+
+            const tbody = document.getElementById("donorTableBody");
+            tbody.innerHTML = donors.map(d => `
+                <tr>
+                    <td>${d.name || "Anonymous"}</td>
+                    <td>${d.blood_group || "N/A"}</td>
+                    <td>${d.contact_number || "N/A"}</td>
+                    <td>${d.area || "N/A"}</td>
+                </tr>
+            `).join("");
+        }
+
+        loadDonors();
+    </script>
+</body>
+
+</html>

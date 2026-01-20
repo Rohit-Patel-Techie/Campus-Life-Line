@@ -6,7 +6,7 @@ urlpatterns = [
     path("donors/list/", views.list_donors),
 
     path("requests/", views.create_request),
-
+    path("guidance/", views.gemini_guidance, name="gemini_guidance"),
     path("requests/status-lookup/", views.status_lookup),
 
     path("requests/<str:request_id>/", views.get_request),

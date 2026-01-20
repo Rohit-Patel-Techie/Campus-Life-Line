@@ -7,6 +7,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv(BASE_DIR / ".env")
 
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+# GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-1.5-flash-latest")
+GEMINI_MODEL = "gemini-2.5-flash-lite"
+GEMINI_API_BASE = os.getenv("GEMINI_API_BASE", "https://generativelanguage.googleapis.com/v1")
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-qe*5oz3w&39n_z(u*x6-_j27nm2!+^hm2$lb&=-(y%aq$+j^&a'
 

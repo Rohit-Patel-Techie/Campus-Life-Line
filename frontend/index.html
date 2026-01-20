@@ -10,12 +10,12 @@
 
 <body>
     <header class="topbar">
-        <a href="campuslifeline.html" class="logo">
+        <a href="index.html" class="logo">
             <img src="logo-01.png" alt="CampusLifeLine logo" />
         </a>
 
         <nav class="nav" id="navMenu">
-            <a href="campuslifeline.html">Home</a>
+            <a href="index.html">Home</a>
             <a href="donor.html">Donor Register</a>
             <a href="request.html">Emergency Request</a>
             <a href="check-request.html">Check Request</a>
@@ -23,15 +23,13 @@
         </nav>
 
         <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">☰</button>
-        <button class="btn-primary desktop-cta">Get Help Now</button>
+        <!-- <button class="btn-primary desktop-cta">Get Help Now</button> -->
+        <a class="btn-primary desktop-cta" href="guidance-gemini.html">Get Guidance</a>
+
     </header>
 
-    <section class="hero" style="
-      --hero-desktop: url('hero-01.png');
-      --hero-mobile: url('mobile-hero-01.png');
-    ">
+    <section class="hero" style="--hero-desktop: url('hero-01.png'); --hero-mobile: url('mobile-hero-01.png');">
         <div class="hero-overlay"></div>
-
         <div class="hero-content">
             <span class="badge">Delhi University Emergency Network</span>
             <h1>Fast, Campus‑Centric Blood Donor Coordination</h1>
@@ -45,7 +43,7 @@
             </div>
             <div class="hero-stats">
                 <div>
-                    <h3>2 min</h3>
+                    <h3>10 min</h3>
                     <p>Avg request match time</p>
                 </div>
                 <div>
@@ -94,7 +92,7 @@
             <div class="feature-icon">✨</div>
             <h3>Emergency Guidance (Gemini)</h3>
             <p>Instant AI assistance for patients and donors during emergencies.</p>
-            <a class="feature-btn" href="request.html">Get Guidance</a>
+            <a class="feature-btn" href="guidance-gemini.html">Get Guidance</a>
         </div>
 
         <div class="feature-card feature-donor">
@@ -106,9 +104,9 @@
 
         <div class="feature-card feature-live">
             <div class="feature-icon">🔥</div>
-            <h3>Live Requests (Firestore)</h3>
+            <h3>Live Donor List (Firestore)</h3>
             <p>Track verified live requests and respond faster than ever.</p>
-            <a class="feature-btn" href="donors-list.html">View Requests</a>
+            <a class="feature-btn" href="donors-list.html">View Live Donor List</a>
         </div>
     </section>
 

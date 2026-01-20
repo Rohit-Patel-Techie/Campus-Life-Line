@@ -87,26 +87,65 @@
         </div>
     </section>
 
-    <section class="section">
-        <h2>Available Donors</h2>
-        <p class="section-subtitle">Live data fetched from backend.</p>
+    <section class="section guidance" id="guidance">
+        <h2>Emergency Guidance (Gemini)</h2>
+        <p class="section-subtitle">Short, calm, actionable guidance for patients and donors.</p>
 
-        <div id="donorCount" class="donor-count"></div>
+        <form class="guidance-form" id="guidanceForm">
+            <div class="grid">
+                <label>
+                    Role
+                    <select name="role" required>
+                        <option value="patient">Patient</option>
+                        <option value="donor">Donor</option>
+                    </select>
+                </label>
 
-        <div class="table-wrapper">
-            <table class="donor-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Blood Group</th>
-                        <!-- <th>Phone</th> -->
-                        <th>Location</th>
-                    </tr>
-                </thead>
-                <tbody id="donorTableBody">
-                    <!-- Dynamic rows -->
-                </tbody>
-            </table>
+                <label>
+                    Blood Group
+                    <select name="blood_group" required>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                    </select>
+                </label>
+
+                <label>
+                    Location
+                    <input type="text" name="location" placeholder="e.g., DU North Campus" required />
+                </label>
+
+                <label>
+                    Situation
+                    <input type="text" name="situation" placeholder="e.g., Urgent blood requirement" required />
+                </label>
+            </div>
+
+            <div class="grid">
+                <label>
+                    Last Donation Date (Donor only)
+                    <input type="date" name="last_donation_date" />
+                </label>
+
+                <label>
+                    Tone
+                    <select name="tone">
+                        <option value="calm, reassuring" selected>Calm, reassuring</option>
+                        <option value="direct, urgent">Direct, urgent</option>
+                    </select>
+                </label>
+            </div>
+
+            <button class="btn-primary" type="submit">Get Guidance</button>
+        </form>
+
+        <div class="guidance-output" id="guidanceOutput">
+            <p class="muted">Your guidance will appear here.</p>
         </div>
     </section>
 
@@ -117,27 +156,6 @@
     <script type="module">
         import "./campuslifeline.js";
 
-        const API = "https://rohit2026.pythonanywhere.com/api";
-
-        async function loadDonors() {
-            const res = await fetch(`${API}/donors/list/`);
-            const data = await res.json();
-            const donors = data.data || [];
-
-            const countBox = document.getElementById("donorCount");
-            countBox.textContent = `Total Registered Donors: ${donors.length}`;
-
-            const tbody = document.getElementById("donorTableBody");
-            tbody.innerHTML = donors.map(d => `
-                <tr>
-                    <td>${d.name || "Anonymous"}</td>
-                    <td>${d.blood_group || "N/A"}</td>
-                    <td>${d.area || "N/A"}</td>
-                </tr>
-            `).join("");
-        }
-
-        loadDonors();
     </script>
 </body>
 

@@ -1,11 +1,12 @@
+import os 
 import json
+import requests
 from datetime import datetime
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
 from django.conf import settings
 from .firebase import get_firestore
-
 
 def _normalize(s):
     return (s or "").strip().lower()
@@ -284,3 +285,76 @@ def status_lookup(request):
         return JsonResponse({"requests": results})
 
     return JsonResponse({"error": "request_id or contact_number required"}, status=400)
+
+
+def _extract_json(text: str) -> str:
+    if not text:
+        return text
+    start = text.find("{")
+    end = text.rfind("}")
+    if start == -1 or end == -1 or end <= start:
+        return text.strip()
+    return text[start:end + 1].strip()
+
+def _build_gemini_prompt(payload):
+    role = payload.get("role", "patient")
+    blood_group = payload.get("blood_group", "Unknown")
+    location = payload.get("location", "Unknown")
+    situation = payload.get("situation", "Urgent blood requirement")
+    tone = payload.get("tone", "calm, reassuring")
+    last_donation_date = payload.get("last_donation_date")
+    documents = payload.get("documents")
+
+    return f"""
+You are CampusLifeLine AI guidance assistant.
+
+Role: {role}
+Blood Group: {blood_group}
+Location: {location}
+Situation: {situation}
+Last Donation Date: {last_donation_date}
+Extra Documents Info: {documents}
+Tone: {tone}
+
+Return STRICT JSON only. No markdown, no code fences.
+
+Format:
+{{
+  "steps": [
+    {{"number": 1, "text": "short actionable step"}}
+  ],
+  "documents_required": {{
+    "patient": ["item 1", "item 2"],
+    "donor": ["item 1", "item 2"]
+  }},
+  "precautions": ["precaution 1", "precaution 2"]
+}}
+""".strip()
+
+@csrf_exempt
+def gemini_guidance(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "POST only"}, status=405)
+
+    body = json.loads(request.body or "{}")
+    if not body.get("role"):
+        return JsonResponse({"error": "role required"}, status=400)
+
+    model = settings.GEMINI_MODEL
+    base = settings.GEMINI_API_BASE
+    key = settings.GEMINI_API_KEY
+
+    prompt = _build_gemini_prompt(body)
+    url = f"{base}/models/{model}:generateContent?key={key}"
+    payload = {"contents": [{"parts": [{"text": prompt}]}]}
+
+    resp = requests.post(url, json=payload, timeout=20)
+    data = resp.json()
+
+    try:
+        raw = data["candidates"][0]["content"]["parts"][0]["text"]
+        extracted = _extract_json(raw)
+        parsed = json.loads(extracted)
+        return JsonResponse(parsed)
+    except Exception:
+        return JsonResponse({"error": "Gemini failed", "raw": data}, status=500)

@@ -1,6 +1,6 @@
 import "./campuslifeline.js";
 
-const API = "http://127.0.0.1:8000/api";
+const API = "https://rohit2026.pythonanywhere.com/api";
 const params = new URLSearchParams(window.location.search);
 const requestId = params.get("request_id") || localStorage.getItem("last_request_id");
 

@@ -1,7 +1,7 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const API = "https://rohit2026.pythonanywhere.com/api";
 
-const API = "http://127.0.0.1:8000/api";
+const form = document.getElementById("guidanceForm");
+const output = document.getElementById("guidanceOutput");
 
 // ===== Hamburger Menu =====
 const menuToggle = document.getElementById("menuToggle");
@@ -13,19 +13,6 @@ if (menuToggle) {
     menuToggle.setAttribute("aria-expanded", String(!expanded));
   };
 }
-
-// ===== Firestore Config =====
-const firebaseConfig = {
-  apiKey: "YOUR_FIREBASE_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
 // ===== Donor Form =====
 const donorForm = document.getElementById("donorForm");
@@ -73,3 +60,76 @@ if (requestsBox) {
     }).join("");
   });
 }
+
+function renderGuidanceJson(data) {
+  const steps = data.steps || [];
+  const docs = data.documents_required || {};
+  const precautions = data.precautions || [];
+
+  const stepsHtml = steps.map(s => `
+    <div class="guidance-item">
+      <div class="guidance-number">${s.number}</div>
+      <div class="guidance-text">${s.text}</div>
+    </div>
+  `).join("");
+
+  const patientDocs = (docs.patient || []).map(d => `<li>${d}</li>`).join("");
+  const donorDocs = (docs.donor || []).map(d => `<li>${d}</li>`).join("");
+  const precautionItems = precautions.map(p => `<li>${p}</li>`).join("");
+
+  output.innerHTML = `
+    <div class="guidance-list">${stepsHtml}</div>
+
+    <div class="guidance-section">
+      <h4>Required Documents</h4>
+      <div class="doc-grid">
+        <div class="doc-card">
+          <h5>Patient</h5>
+          <ul>${patientDocs || "<li>Not specified</li>"}</ul>
+        </div>
+        <div class="doc-card">
+          <h5>Donor</h5>
+          <ul>${donorDocs || "<li>Not specified</li>"}</ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="guidance-section">
+      <h4>Precautions</h4>
+      <ul class="precaution-list">
+        ${precautionItems || "<li>Not specified</li>"}
+      </ul>
+    </div>
+  `;
+}
+
+form?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  output.innerHTML = `<p class="muted">Getting guidance...</p>`;
+
+  const data = Object.fromEntries(new FormData(form).entries());
+  const payload = {
+    role: data.role,
+    blood_group: data.blood_group,
+    location: data.location,
+    situation: data.situation,
+    last_donation_date: data.last_donation_date || null,
+    tone: data.tone || "calm, reassuring",
+    documents: data.documents || ""
+  };
+
+  try {
+    const res = await fetch(`${API}/guidance/`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    const json = await res.json();
+    if (!res.ok) throw new Error(json.error || "Request failed");
+
+    renderGuidanceJson(json);
+  } catch (err) {
+    output.innerHTML = `<p class="muted">Error: ${err.message}</p>`;
+  }
+});

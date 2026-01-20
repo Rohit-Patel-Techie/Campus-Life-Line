@@ -1,5 +1,20 @@
-const API = "http://127.0.0.1:8000/api";
+const API = "https://rohit2026.pythonanywhere.com/api";
+
 const form = document.getElementById("requestForm");
+const guidanceBtn = document.getElementById("getGuidanceBtn");
+const guidanceBox = document.getElementById("guidanceBox");
+
+guidanceBtn?.addEventListener("click", async () => {
+  guidanceBox.innerHTML = "Loading guidance...";
+  const res = await fetch(`${API}/guidance/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ query: "Give emergency blood donation guidance." })
+  });
+  const data = await res.json();
+  guidanceBox.innerHTML = data.answer || "No response.";
+});
+
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
